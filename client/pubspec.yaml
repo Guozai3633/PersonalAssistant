@@ -1,0 +1,56 @@
+name: client
+description: Personal AI Assistant Flutter Client.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 状态管理
+  flutter_riverpod: ^2.3.6
+
+  # 网络请求
+  http: ^1.1.0
+
+  # 本地持久化缓存（存储用户 API Key, BaseURL, Provider）
+  shared_preferences: ^2.2.0
+
+  # 炫酷仪表盘图表
+  fl_chart: ^0.63.0
+
+  # 精英极客风字体
+  google_fonts: ^6.1.0
+
+  # 国际化与时间格式化
+  intl: ^0.18.1
+
+  # 视觉与交互图标
+  cupertino_icons: ^1.0.5
+
+  # 跨平台文件与图片选择
+  file_picker: ^8.0.0
+  image_picker: ^1.0.7
+
+  # 音频录制与分贝振幅获取
+  record: ^5.0.0
+  path_provider: ^2.1.0
+
+  # 接收系统分享（微信一键分享）
+  receive_sharing_intent: ^1.6.0
+  audioplayers: ^6.7.1
+  encrypt: ^5.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+dependency_overrides:
+  record_linux:
+    path: .stub_record_linux

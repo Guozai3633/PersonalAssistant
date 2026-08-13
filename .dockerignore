@@ -1,0 +1,10 @@
+data/
+client/
+.git/
+*.apk
+*.aab
+build/
+.gradle/
+.idea/
+*.iml
+node_modules/

@@ -1,0 +1,50 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: assistant-qdrant
+    ports:
+      - "6333:6333" # REST API
+      - "6334:6334" # gRPC API
+    volumes:
+      # 挂载宿主机目录，持久化向量数据库数据，防止容器销毁后数据丢失
+      - ./data/qdrant_storage:/qdrant/storage
+    restart: always
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: assistant-backend
+    ports:
+      - "8082:8080" # 后端 HTTP 服务接口
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - qdrant
+      - whisper-asr
+    volumes:
+      # 挂载宿主机目录，持久化 SQLite 数据库文件
+      - ./data/backend_data:/app/data
+    environment:
+      - PORT=8080
+      - DB_PATH=/app/data/assistant.db # 挂载目录下的 SQLite 文件路径
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - QDRANT_GRPC_PORT=6334
+      - TZ=Asia/Shanghai
+      - APP_ENV=production
+    restart: always
+
+  # 🎙️ 新增的语音转文字服务（基于 Faster-Whisper）
+  whisper-asr:
+    image: fedirz/faster-whisper-server:latest-cpu
+    container_name: assistant-whisper-asr
+    ports:
+      - "9000:9000"
+    environment:
+      - ASR_MODEL=base          # 默认使用 base 模型（约 140MB），在 CPU 上跑识别速度和效果非常均衡
+      - ASR_ENGINE=faster_whisper
+    volumes:
+      # 【重要优化】将容器内的模型缓存目录挂载出来，防止因容器重建导致重新去 HuggingFace 下载模型（避免国内超时报错）
+      - ./data/whisper_cache:/root/.cache
+    restart: always

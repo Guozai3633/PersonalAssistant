@@ -1,0 +1,80 @@
+﻿# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors and local tooling
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Local agent/tool state
+.agent/
+.agents/
+.claude/
+tmpclaude-*
+
+# Secrets and private artifacts
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+usercert-*.zip
+
+# Logs and reports
+*.log
+logs/
+logs_for_screenshots/
+
+# Local runtime data
+data/
+*.db
+*.db-shm
+*.db-wal
+assistant.db*
+
+# Go build outputs
+*.exe
+*.test
+*.out
+bin/
+dist/
+coverage.out
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Flutter / Dart
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+coverage/
+client/.dart-local/
+client/.dart_tool/
+client/.flutter-plugins
+client/.flutter-plugins-dependencies
+client/build/
+client/android/build/
+client/android/app/debug/
+client/android/app/profile/
+client/android/app/release/
+client/ios/Flutter/.last_build_id
+
+# Generated web/static test outputs
+client/flutter-web.out.log
+client/flutter-web.err.log
+client/flutter_01.log
+client/web-static.out.log
+client/web-static.err.log
